@@ -1,15 +1,12 @@
-import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
+import { ArrowRight } from "lucide-react";
+import { FaWhatsapp } from "react-icons/fa";
 
 import Breadcrumbs from "../../components/common/Breadcrumbs/Breadcrumbs";
-import DecorativeBlobs from "../../components/common/DecorativeBlobs/DecorativeBlobs";
 import Seo from "../../components/common/Seo/Seo";
 import StructuredData from "../../components/common/StructuredData/StructuredData";
-import Button from "../../components/common/Button/Button";
-import {
-  fadeUp,
-  inViewOnce,
-} from "../../components/common/motion/motionVariants";
 import services from "../../config/services.config";
+import siteConfig from "../../config/site.config";
 import { buildServiceListSchema } from "../../utils/structuredData";
 import ServiceCard from "../../features/services/components/ServiceCard";
 
@@ -19,46 +16,53 @@ export const servicesBreadcrumbs = [
 ];
 
 /**
- * Services route screen.
+ * Services route screen — Clean, professional agency services page for Sri Simbha.
  *
- * The grid is data-driven from `config/services.config.js`, so the six cards
- * are one loop over one array instead of six blocks of duplicated JSX.
+ * Implements:
+ * - Natural typography and balanced spacing without oversized odd fonts
+ * - Six-service responsive grid with consistent card heights
+ * - Compact campaign enquiry band below the services
+ * - Seamless visual parity with Contact Us (deep navy, refined gold accents, zero card clutter)
  */
 const Services = () => (
-  <div className="relative mt-16 min-h-viewport overflow-hidden bg-[color:var(--color-surface)] px-4 py-10 text-[color:var(--color-text)] dark:bg-surface-dark dark:text-gray-100 sm:px-6 lg:px-10">
+  <div className="relative min-h-[calc(100vh-var(--header-height))] bg-navy-primary text-white pt-24 pb-12 sm:pt-28 sm:pb-16 px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 2xl:px-20">
     <Seo
-      title="Advertising Services in Visakhapatnam"
+      title="Advertising Services in Visakhapatnam | Sri Simbha Ad Solutions"
       description="LED display ads, tea cup printing, digital marketing, website building, ads on wheels and ad film production. One Visakhapatnam agency for every advertising channel."
       path="/services"
     />
     <StructuredData data={buildServiceListSchema()} />
 
-    <DecorativeBlobs />
-
-    <div className="relative z-10">
-      <div className="mx-auto mb-10 w-full max-w-container">
+    <div className="mx-auto max-w-container w-full">
+      {/* Breadcrumb Navigation */}
+      <div className="mb-5 sm:mb-6">
         <Breadcrumbs items={servicesBreadcrumbs} />
       </div>
 
-      <motion.div
-        className="mb-12 text-center"
-        initial="hidden"
-        whileInView="visible"
-        viewport={inViewOnce}
-        variants={fadeUp}
-      >
-        <h1 className="mb-4 text-h1 font-bold text-brand-700 dark:text-brand-400">
-          Our Services
-        </h1>
-        <p className="measure-narrow mx-auto text-lead font-light text-[color:var(--color-text-muted)] dark:text-gray-300">
-          Explore the wide range of advertising services we provide to elevate
-          your brand’s visibility.
-        </p>
-      </motion.div>
+      {/* Hero Section */}
+      <div className="flex flex-col md:flex-row md:items-end justify-between gap-5 mb-8 lg:mb-10 pb-6 border-b border-white/10">
+        <div className="max-w-2xl">
+          <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-white mb-2">
+            Our <span className="text-gold-primary">Services</span>
+          </h1>
+          <p className="text-sm sm:text-base text-gray-300 font-normal leading-relaxed">
+            High-impact advertising solutions engineered to command attention and deliver measurable reach across outdoor display networks, transit media, and digital channels.
+          </p>
+        </div>
 
+        <Link
+          to="/contact"
+          className="gold-btn-primary inline-flex items-center justify-center gap-1.5 px-5 py-2.5 rounded-xl font-bold text-xs sm:text-sm text-navy-primary shadow-md hover:brightness-105 active:scale-[0.99] transition-all self-start md:self-auto shrink-0"
+        >
+          <span>Contact Us Today</span>
+          <ArrowRight className="w-4 h-4" />
+        </Link>
+      </div>
+
+      {/* Grid of 6 Services */}
       <ul
         aria-label="All services"
-        className="mx-auto grid max-w-container grid-cols-1 gap-6 sm:grid-cols-2 sm:gap-10 lg:grid-cols-3"
+        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 lg:gap-6 w-full mb-10 lg:mb-12"
       >
         {services.map((service, index) => (
           <li key={service.id} className="h-full">
@@ -67,17 +71,39 @@ const Services = () => (
         ))}
       </ul>
 
-      <motion.div
-        className="mt-16 flex justify-center"
-        initial="hidden"
-        whileInView="visible"
-        viewport={inViewOnce}
-        variants={fadeUp}
-      >
-        <Button to="/contact" variant="primary" size="lg">
-          Contact Us Today
-        </Button>
-      </motion.div>
+      {/* Compact Bottom Campaign Enquiry Strip */}
+      <div className="w-full rounded-2xl border border-white/10 bg-navy-secondary/60 p-6 sm:p-8 backdrop-blur-sm shadow-lg">
+        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-5">
+          <div className="max-w-2xl">
+            <h2 className="text-lg sm:text-xl font-bold text-white tracking-tight mb-1.5">
+              Need a Custom Campaign Plan?
+            </h2>
+            <p className="text-xs sm:text-sm text-gray-300 font-normal leading-relaxed">
+              From prime highway LED billboards to dynamic mobile van displays and targeted digital marketing, our team will help you craft the right media mix for your goals and budget.
+            </p>
+          </div>
+
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5 shrink-0">
+            <Link
+              to="/contact"
+              className="gold-btn-primary inline-flex items-center justify-center gap-1.5 px-5 py-2.5 rounded-xl font-bold text-xs sm:text-sm text-navy-primary shadow-md hover:brightness-105 active:scale-[0.99] transition-all text-center"
+            >
+              <span>Send an Enquiry</span>
+              <ArrowRight className="w-4 h-4" />
+            </Link>
+
+            <a
+              href={`https://wa.me/${siteConfig.contact.whatsappNumber}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-xl border border-emerald-500/30 bg-emerald-950/30 text-emerald-400 text-xs sm:text-sm font-semibold hover:bg-emerald-900/40 hover:border-emerald-400 transition-all text-center"
+            >
+              <FaWhatsapp className="text-sm text-emerald-400" aria-hidden="true" />
+              <span>Chat on WhatsApp</span>
+            </a>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 );

@@ -41,17 +41,17 @@ const Breadcrumbs = ({ items = [], className, showSchema = true }) => {
       ) : null}
 
       <nav aria-label="Breadcrumb" className={cx("w-full", className)}>
-        <ol className="flex flex-wrap items-center gap-1 text-sm text-gray-600 dark:text-gray-400">
+        <ol className="flex flex-wrap items-center gap-1.5 text-xs sm:text-sm font-medium text-gray-400">
           {items.map((item, index) => {
             const isCurrent = index === currentIndex;
 
             return (
               <Fragment key={item.path}>
-                <li className="flex items-center gap-1">
+                <li className="flex items-center gap-1.5">
                   {isCurrent ? (
                     <span
                       aria-current="page"
-                      className="font-medium text-brand-700 dark:text-brand-400"
+                      className="font-bold text-gold-bright tracking-wide"
                     >
                       {item.name}
                     </span>
@@ -61,7 +61,7 @@ const Breadcrumbs = ({ items = [], className, showSchema = true }) => {
                       // `inline-block` + `py-1` takes the crumb from 20px to
                       // 28px tall, clearing the WCAG 2.2 minimum target size
                       // without visibly changing the trail's spacing.
-                      className="inline-block rounded py-1 transition-colors hover:text-brand-500"
+                      className="inline-block rounded py-1 transition-colors hover:text-gold-bright text-gray-400"
                     >
                       {item.name}
                     </Link>
@@ -70,7 +70,7 @@ const Breadcrumbs = ({ items = [], className, showSchema = true }) => {
 
                 {isCurrent ? null : (
                   <li aria-hidden="true" className="flex items-center">
-                    <ChevronRight size={14} className="shrink-0 opacity-60" />
+                    <ChevronRight size={13} className="shrink-0 text-gold-primary/40" />
                   </li>
                 )}
               </Fragment>

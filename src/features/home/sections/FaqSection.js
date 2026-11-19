@@ -1,26 +1,19 @@
 import { useId, useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
-import { Plus } from "lucide-react";
+import { Plus, MessageSquare } from "lucide-react";
 
 import StructuredData from "../../../components/common/StructuredData/StructuredData";
 import { buildFaqSchema } from "../../../utils/structuredData";
 import { faqs } from "../../../data/faq.data";
+import { buildWhatsAppUrl } from "../../../config/site.config";
 import { cx } from "../../../utils/helpers";
 
 /**
- * FAQ accordion.
+ * FaqSection — Clean two-column FAQ section.
  *
- * Implemented with `<h3><button aria-expanded aria-controls>` rather than
- * `<details>`, because the panel has to animate and because controlling the
- * open state is what lets the button label describe the *action* ("Close
- * question") instead of the state.
- *
- * Only one panel is open at a time — a column of six expanded answers reads as
- * a wall of text and hides the rest of the page.
- *
- * The `FAQPage` schema is emitted from the same array that renders the visible
- * questions and answers. Google rejects FAQ rich results when the structured
- * data is not visible on the page, so the two must never be authored separately.
+ * Implements:
+ * - Natural typography and balanced spacing without oversized odd fonts
+ * - Sticky editorial column on the left and accessible accordion items on the right
+ * - Elimination of unwanted decorative badges and heavy blur layers
  */
 const FaqSection = () => {
   const [openId, setOpenId] = useState(faqs[0]?.id ?? null);
@@ -30,77 +23,93 @@ const FaqSection = () => {
     <section
       id="faq"
       aria-labelledby="faq-heading"
-      className="bg-white px-6 section-y dark:bg-surface-dark"
+      className="relative bg-navy-secondary/50 text-white px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 2xl:px-20 py-12 sm:py-16 border-t border-white/5"
     >
       <StructuredData data={buildFaqSchema(faqs)} />
 
-      <div className="mx-auto max-w-3xl">
-        <h2
-          id="faq-heading"
-          className="mb-4 text-center text-h2 font-bold text-gray-900 dark:text-white"
-        >
-          Frequently asked questions
-        </h2>
-        <p className="measure-narrow mx-auto mb-10 text-center text-body text-gray-600 dark:text-gray-300">
-          Everything clients ask before their first campaign. If something is
-          missing, message us and we will answer it straight.
-        </p>
+      <div className="mx-auto max-w-container w-full">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
+          {/* Left Column: Heading & Quick WhatsApp Question Card */}
+          <div className="lg:col-span-5 lg:sticky lg:top-28">
+            <h2
+              id="faq-heading"
+              className="text-2xl sm:text-3xl font-bold text-white tracking-tight mb-3"
+            >
+              Frequently Asked <span className="text-gold-primary">Questions</span>
+            </h2>
 
-        <ul className="space-y-3">
-          {faqs.map((faq) => {
-            const isOpen = openId === faq.id;
-            const panelId = `${baseId}-${faq.id}-panel`;
-            const buttonId = `${baseId}-${faq.id}-button`;
+            <p className="text-sm sm:text-base text-gray-300 font-normal leading-relaxed mb-6">
+              Common questions clients ask before launching their first campaign. If you have specific location needs, reach out to us directly.
+            </p>
 
-            return (
-              <li
-                key={faq.id}
-                className="overflow-hidden rounded-2xl border border-gray-200 bg-gray-50 dark:border-gray-800 dark:bg-gray-900"
+            <div className="rounded-2xl border border-white/10 bg-navy-primary/70 p-5 sm:p-6 backdrop-blur-sm shadow-md">
+              <h3 className="text-sm sm:text-base font-bold text-white mb-1.5">
+                Have a specific question or custom location?
+              </h3>
+              <p className="text-xs sm:text-sm text-gray-300 font-normal leading-relaxed mb-4">
+                Our directors are available to discuss screen locations, technical formats, and rate cards.
+              </p>
+              <a
+                href={buildWhatsAppUrl("Hi, I have a question regarding campaign placement options.")}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="gold-btn-primary w-full py-3 px-4 rounded-xl flex items-center justify-center gap-2 font-bold text-navy-primary text-xs sm:text-sm shadow-md hover:brightness-105 transition-all text-center"
               >
-                <h3>
-                  <button
-                    type="button"
-                    id={buttonId}
-                    aria-expanded={isOpen}
-                    aria-controls={panelId}
-                    onClick={() => setOpenId(isOpen ? null : faq.id)}
-                    className="flex w-full items-center justify-between gap-4 px-5 py-4 text-left text-base font-semibold text-gray-900 transition-colors hover:bg-gray-100 sm:text-lg dark:text-white dark:hover:bg-gray-800"
-                  >
-                    {faq.question}
-                    <Plus
-                      size={20}
-                      aria-hidden="true"
-                      className={cx(
-                        "shrink-0 transition-transform duration-300",
-                        isOpen && "rotate-45"
-                      )}
-                    />
-                  </button>
-                </h3>
+                <MessageSquare className="w-4 h-4 text-navy-primary" />
+                <span>Ask on WhatsApp</span>
+              </a>
+            </div>
+          </div>
 
-                <AnimatePresence initial={false}>
-                  {isOpen ? (
-                    <motion.div
-                      id={panelId}
-                      role="region"
-                      aria-labelledby={buttonId}
-                      key="panel"
-                      initial={{ height: 0, opacity: 0 }}
-                      animate={{ height: "auto", opacity: 1 }}
-                      exit={{ height: 0, opacity: 0 }}
-                      transition={{ duration: 0.25, ease: "easeInOut" }}
-                      className="overflow-hidden"
-                    >
-                      <p className="text-body px-5 pb-5 text-gray-700 dark:text-gray-300">
+          {/* Right Column: Accordion Items */}
+          <div className="lg:col-span-7">
+            <ul className="space-y-3">
+              {faqs.map((faq) => {
+                const isOpen = openId === faq.id;
+                const panelId = `${baseId}-${faq.id}-panel`;
+                const buttonId = `${baseId}-${faq.id}-button`;
+
+                return (
+                  <li
+                    key={faq.id}
+                    className="overflow-hidden rounded-xl border border-white/10 bg-navy-primary/70 backdrop-blur-sm transition-all hover:border-gold-primary/30 shadow-sm"
+                  >
+                    <h3>
+                      <button
+                        type="button"
+                        id={buttonId}
+                        aria-expanded={isOpen}
+                        aria-controls={panelId}
+                        onClick={() => setOpenId(isOpen ? null : faq.id)}
+                        className="flex w-full items-center justify-between p-4 sm:p-5 text-left font-semibold text-sm sm:text-base text-white hover:text-gold-primary transition-colors cursor-pointer"
+                      >
+                        <span className="pr-4">{faq.question}</span>
+                        <Plus
+                          className={cx(
+                            "h-4 w-4 shrink-0 text-gold-primary transition-transform duration-200",
+                            isOpen && "rotate-45"
+                          )}
+                          aria-hidden="true"
+                        />
+                      </button>
+                    </h3>
+
+                    {isOpen && (
+                      <div
+                        id={panelId}
+                        role="region"
+                        aria-labelledby={buttonId}
+                        className="px-4 pb-4 sm:px-5 sm:pb-5 text-sm text-gray-300 font-normal leading-relaxed pt-1 border-t border-white/5"
+                      >
                         {faq.answer}
-                      </p>
-                    </motion.div>
-                  ) : null}
-                </AnimatePresence>
-              </li>
-            );
-          })}
-        </ul>
+                      </div>
+                    )}
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
+        </div>
       </div>
     </section>
   );

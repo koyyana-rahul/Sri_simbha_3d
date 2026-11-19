@@ -1,20 +1,19 @@
+import { Link } from "react-router-dom";
 import { FaPhoneAlt, FaWhatsapp } from "react-icons/fa";
+import { ArrowRight } from "lucide-react";
 
-import Button from "../../../components/common/Button/Button";
 import siteConfig, {
   buildTelUrl,
   buildWhatsAppUrl,
 } from "../../../config/site.config";
 
 /**
- * Conversion call-to-action band.
+ * CtaSection — Clean, professional conversion call-to-action band.
  *
- * The single highest-value element on a lead-generation site: it gives a visitor
- * who has scrolled past everything else three ways to convert — WhatsApp (the
- * channel this audience actually uses), a direct call, and the enquiry form.
- *
- * `heading`, `body` and `context` are props so the same component can close the
- * home page, a service page and the about page without duplicating markup.
+ * Implements:
+ * - Natural typography and balanced spacing without oversized odd fonts
+ * - Elimination of unwanted decorative badges and heavy blur layers
+ * - Direct conversion via WhatsApp, Phone, and Contact page
  */
 const CtaSection = ({
   heading = "Let’s plan your campaign",
@@ -24,37 +23,52 @@ const CtaSection = ({
 }) => (
   <section
     aria-labelledby="cta-heading"
-    className={`bg-gradient-to-br from-brand-400 to-orange-500 px-6 section-y text-center text-gray-900 sm:px-10 ${className}`.trim()}
+    className={`relative bg-navy-primary text-white px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 2xl:px-20 py-12 sm:py-16 text-center border-t border-white/10 ${className}`.trim()}
   >
-    <div className="mx-auto max-w-3xl">
-      <h2 id="cta-heading" className="mb-4 text-h2 font-bold">
+    <div className="mx-auto max-w-2xl w-full">
+      <h2
+        id="cta-heading"
+        className="mb-2.5 text-2xl sm:text-3xl font-bold text-white tracking-tight"
+      >
         {heading}
       </h2>
-      <p className="measure-narrow mx-auto mb-8 text-lead text-gray-900/85">
+
+      <p className="mx-auto mb-6 text-sm sm:text-base text-gray-300 font-normal leading-relaxed">
         {body}
       </p>
 
       {context ? (
-        <p className="mb-6 text-sm font-medium text-gray-900/70">{context}</p>
+        <p className="mb-5 text-xs sm:text-sm font-medium text-gold-primary">
+          {context}
+        </p>
       ) : null}
 
-      <div className="flex flex-wrap items-center justify-center gap-4">
-        <Button
+      <div className="flex flex-wrap items-center justify-center gap-3">
+        <Link
+          to="/contact"
+          className="gold-btn-primary inline-flex items-center justify-center gap-1.5 px-5 py-2.5 rounded-xl font-bold text-xs sm:text-sm text-navy-primary shadow-md hover:brightness-105 active:scale-[0.99] transition-all"
+        >
+          <span>Send an Enquiry</span>
+          <ArrowRight className="w-4 h-4" />
+        </Link>
+
+        <a
           href={buildWhatsAppUrl()}
           target="_blank"
           rel="noopener noreferrer"
-          variant="primary"
-          size="lg"
-          className="bg-gray-900 text-white shadow-lg hover:bg-gray-800"
+          className="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl border border-emerald-500/30 bg-emerald-950/30 text-emerald-400 text-xs sm:text-sm font-semibold hover:bg-emerald-900/40 hover:border-emerald-400 transition-all"
         >
-          <FaWhatsapp aria-hidden="true" />
-          Chat on WhatsApp
-        </Button>
+          <FaWhatsapp className="text-base text-emerald-400" aria-hidden="true" />
+          <span>Chat on WhatsApp</span>
+        </a>
 
-        <Button href={buildTelUrl()} variant="outline" size="lg">
-          <FaPhoneAlt aria-hidden="true" />
-          {siteConfig.contact.phone}
-        </Button>
+        <a
+          href={buildTelUrl()}
+          className="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl border border-white/10 bg-white/5 text-gray-200 text-xs sm:text-sm font-semibold hover:border-gold-primary/40 hover:text-white transition-all"
+        >
+          <FaPhoneAlt className="text-xs text-gold-primary" aria-hidden="true" />
+          <span>{siteConfig.contact.phone}</span>
+        </a>
       </div>
     </div>
   </section>

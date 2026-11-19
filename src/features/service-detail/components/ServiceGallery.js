@@ -1,53 +1,65 @@
-import { motion } from "framer-motion";
-
-import {
-  cardVariant,
-  staggerFast,
-} from "../../../components/common/motion/motionVariants";
+import { ZoomIn } from "lucide-react";
 import Image from "../../../components/common/Image/Image";
 
 /**
- * Grid of gallery images.
+ * ServiceGallery — Clean campaign media gallery.
  *
- * Every tile is a real `<button>` (the original used `<div onClick>`, which
- * keyboard and screen-reader users could not open), it is focusable, has an
- * accessible name, and the images carry real alt text plus lazy loading.
+ * Implements:
+ * - Natural typography and balanced spacing without oversized odd fonts
+ * - Clean 4-column photo grid with refined hover borders and zoom affordance
+ * - Elimination of unwanted decorative badges and heavy blur layers
  */
-const ServiceGallery = ({ items, onSelect }) => (
-  <motion.ul
-    className="mx-auto mt-20 grid w-full max-w-container grid-cols-1 gap-6 px-2 sm:grid-cols-2 sm:gap-8 md:grid-cols-3 xl:grid-cols-4 sm:px-4"
-    variants={staggerFast}
-    initial="hidden"
-    whileInView="visible"
-    viewport={{ once: true, amount: 0.1 }}
-  >
-    {items.map((item, index) => (
-      <motion.li key={item.src} variants={cardVariant} className="h-full">
-        <button
-          type="button"
-          onClick={() => onSelect(item)}
-          className="group relative block h-full w-full overflow-hidden rounded-2xl bg-white shadow-md transition-shadow duration-300 hover:shadow-xl focus-visible:shadow-xl dark:bg-gray-800"
-        >
-          <Image
-            src={item.src}
-            alt={item.alt}
-            ratio="1 / 1"
-            className="transition-transform duration-500 group-hover:scale-110"
-          />
-          <span
-            aria-hidden="true"
-            className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100 group-focus-visible:opacity-100"
-          />
-          {item.caption ? (
-            <span className="absolute bottom-2 left-2 z-10 text-sm font-light text-white">
-              {item.caption}
-            </span>
-          ) : null}
-          <span className="sr-only">Open larger view of {item.alt}</span>
-        </button>
-      </motion.li>
-    ))}
-  </motion.ul>
-);
+const ServiceGallery = ({ items, onSelect }) => {
+  if (!items?.length) return null;
+
+  return (
+    <div className="w-full">
+      <div className="mb-6 sm:mb-8 text-center max-w-xl mx-auto">
+        <h2 className="text-xl sm:text-2xl font-bold text-white tracking-tight mb-1.5">
+          Campaign <span className="text-gold-primary">Gallery</span>
+        </h2>
+        <p className="text-xs sm:text-sm text-gray-300 font-normal">
+          Real-world installations, displays, and client placements across Andhra Pradesh.
+        </p>
+      </div>
+
+      <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-5">
+        {items.map((item) => (
+          <li key={item.src} className="h-full">
+            <button
+              type="button"
+              onClick={() => onSelect(item)}
+              aria-label={`Open larger view of ${item.alt}`}
+              className="group relative block h-full w-full overflow-hidden rounded-2xl border border-white/10 bg-navy-secondary/60 backdrop-blur-sm shadow-md transition-all duration-300 hover:border-gold-primary/40 focus-visible:border-gold-primary cursor-pointer"
+            >
+              <Image
+                src={item.src}
+                alt={item.alt}
+                ratio="1 / 1"
+                className="transition-transform duration-500 group-hover:scale-105"
+              />
+
+              {/* Subtle hover vignette & zoom icon */}
+              <span
+                aria-hidden="true"
+                className="absolute inset-0 bg-navy-primary/40 opacity-0 transition-opacity duration-300 group-hover:opacity-100 flex items-center justify-center"
+              >
+                <span className="flex h-9 w-9 items-center justify-center rounded-full bg-navy-primary/90 border border-white/20 text-gold-primary shadow-md">
+                  <ZoomIn size={16} />
+                </span>
+              </span>
+
+              {item.caption ? (
+                <span className="absolute bottom-2 left-2.5 right-2.5 z-10 text-[11px] font-medium text-white truncate drop-shadow-md">
+                  {item.caption}
+                </span>
+              ) : null}
+            </button>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+};
 
 export default ServiceGallery;

@@ -28,6 +28,27 @@ module.exports = {
           700: "#b45309",
           800: "#92400e",
         },
+        navy: {
+          DEFAULT: "#081329",
+          primary: "#081329",
+          secondary: "#101F42",
+          surface: "#0c1733",
+          card: "#0f1e40",
+          light: "#162855",
+          border: "rgba(232, 184, 63, 0.18)",
+        },
+        gold: {
+          DEFAULT: "#E8B83F",
+          primary: "#E8B83F",
+          bright: "#FFC928",
+          amber: "#F59E0B",
+          glow: "rgba(232, 184, 63, 0.4)",
+        },
+        cinematic: {
+          text: "#FFFFFF",
+          muted: "#B9C1D0",
+          dim: "#8692A6",
+        },
         /*
          * Surfaces. `surface` is the page background; the numbered steps are
          * the dark-mode elevation ladder from `styles/variables.css`
@@ -54,7 +75,9 @@ module.exports = {
         pill: "9999px",
       },
       maxWidth: {
-        container: "72rem",
+        container: "105rem",
+        wide: "115rem",
+        narrow: "56rem",
       },
       zIndex: {
         // `header` / `floating` are referenced as `z-header` / `z-floating`.

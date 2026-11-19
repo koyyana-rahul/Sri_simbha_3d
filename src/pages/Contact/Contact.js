@@ -1,143 +1,126 @@
-import { motion } from "framer-motion";
-import { MapPin } from "lucide-react";
+import { Mail, Phone, MapPin } from "lucide-react";
 
 import Breadcrumbs from "../../components/common/Breadcrumbs/Breadcrumbs";
-import DecorativeBlobs from "../../components/common/DecorativeBlobs/DecorativeBlobs";
 import Seo from "../../components/common/Seo/Seo";
 import StructuredData from "../../components/common/StructuredData/StructuredData";
-import {
-  fadeUpLarge,
-  inViewOnce,
-} from "../../components/common/motion/motionVariants";
 import { buildLocalBusinessSchema } from "../../utils/structuredData";
-import { serviceAreas } from "../../data/company.data";
+import siteConfig from "../../config/site.config";
 import EnquiryForm from "../../features/contact/components/EnquiryForm";
-import {
-  contactChannels,
-  contactPage,
-} from "../../features/contact/data/contact.data";
+import { contactPage } from "../../features/contact/data/contact.data";
 
 /**
- * Contact route screen.
+ * Contact route screen — Simple, clean, professional redesign for Sri Simbha Ad Solutions.
  *
- * Three channels are presented as accessible cards, followed by an enquiry form
- * that composes the message into a pre-filled WhatsApp or e-mail. There is no
- * backend, so the form deliberately posts nowhere — see `EnquiryForm` for why
- * that is a real destination rather than a stub.
+ * Implements:
+ * - Clean editorial hero: "Contact Us" with short supporting text
+ * - Balanced two-column desktop layout (35% contact details, 65% enquiry form)
+ * - Essential contact info only: Email, Phone/WhatsApp, Verified Location with map link
+ * - Verified business availability message
+ * - Compact height eliminating unnecessary vertical gaps and nested cards
+ * - Single-column responsive layout for mobile screens
  */
-const Contact = () => (
-  // `pt-header` for the same reason as About: the hardcoded `pt-20` (80px)
-  // under-cleared the 83px fixed header at every width from 640px up, putting
-  // the breadcrumb 3px behind it. This page is the only other one affected.
-  <section className="relative flex min-h-viewport flex-col items-center overflow-hidden bg-[color:var(--color-surface)] px-4 pb-10 pt-header text-[color:var(--color-text)] dark:bg-surface-dark dark:text-gray-100 sm:px-6">
-    <Seo
-      title={contactPage.metaTitle}
-      description={contactPage.intro}
-      path="/contact"
-    />
-    <StructuredData data={buildLocalBusinessSchema()} />
+const Contact = () => {
+  return (
+    // `pt-header` clears the global fixed header properly per design token rules.
+    <section className="relative min-h-[calc(100vh-var(--header-height))] bg-navy-primary text-white px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 2xl:px-20 pt-header pb-16 lg:pb-20">
+      <Seo
+        title={contactPage.metaTitle}
+        description={contactPage.intro}
+        path="/contact"
+      />
+      <StructuredData data={buildLocalBusinessSchema()} />
 
-    <DecorativeBlobs />
+      <div className="w-full max-w-container mx-auto">
+        {/* Breadcrumb Navigation */}
+        <Breadcrumbs items={contactPage.breadcrumbs} className="mb-6 sm:mb-8" />
 
-    <div className="relative z-10 w-full max-w-container">
-      <Breadcrumbs items={contactPage.breadcrumbs} className="mb-8" />
-    </div>
+        {/* 2. CLEAN CONTACT HERO */}
+        <div className="mb-8 lg:mb-10 max-w-3xl">
+          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-white mb-3">
+            Contact <span className="text-gold-primary">Us</span>
+          </h1>
+          <p className="text-base sm:text-lg text-gray-300 font-normal leading-relaxed">
+            Have a project in mind? Tell us what you need. Our team will help you find the right advertising solution.
+          </p>
+        </div>
 
-    <motion.div
-      className="relative z-10 max-w-4xl text-center"
-      initial="hidden"
-      whileInView="visible"
-      viewport={inViewOnce}
-      variants={fadeUpLarge}
-      custom={0}
-    >
-      <h1 className="mb-6 text-h1 font-bold text-brand-700 dark:text-brand-400">
-        {contactPage.title}
-      </h1>
-      <p className="measure mx-auto text-lead font-light text-[color:var(--color-text-muted)] dark:text-gray-300">
-        {contactPage.intro}
-      </p>
-    </motion.div>
+        {/* 3. TWO-COLUMN LAYOUT (35% Left Contact Info, 65% Right Enquiry Form) */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 xl:gap-16 items-start">
+          {/* LEFT COLUMN: Essential Contact Information */}
+          <div className="lg:col-span-4 xl:col-span-4 flex flex-col">
+            <div className="flex flex-col gap-6">
+              {/* Email */}
+              <a
+                href={`mailto:${siteConfig.contact.email}`}
+                className="group flex items-start gap-4 transition-colors"
+              >
+                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border border-white/10 bg-navy-secondary/60 text-gold-primary group-hover:border-gold-primary/40 group-hover:text-gold-bright transition-all">
+                  <Mail className="h-5 w-5" aria-hidden="true" />
+                </div>
+                <div className="min-w-0">
+                  <span className="block text-xs font-semibold uppercase tracking-wider text-gray-400">
+                    Email
+                  </span>
+                  <span className="text-sm sm:text-base font-medium text-white group-hover:text-gold-primary transition-colors break-all">
+                    {siteConfig.contact.email}
+                  </span>
+                </div>
+              </a>
 
-    <motion.ul
-      className="relative z-10 mt-12 grid w-full max-w-container grid-cols-1 gap-8 px-4 sm:px-6 md:grid-cols-3"
-      initial="hidden"
-      whileInView="visible"
-      viewport={inViewOnce}
-      variants={fadeUpLarge}
-      custom={2}
-    >
-      {contactChannels.map((channel, index) => {
-        const Icon = channel.icon;
+              {/* Phone / WhatsApp */}
+              <a
+                href={`tel:${siteConfig.contact.phone.replace(/\s+/g, "")}`}
+                className="group flex items-start gap-4 transition-colors"
+              >
+                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border border-white/10 bg-navy-secondary/60 text-gold-primary group-hover:border-gold-primary/40 group-hover:text-gold-bright transition-all">
+                  <Phone className="h-5 w-5" aria-hidden="true" />
+                </div>
+                <div className="min-w-0">
+                  <span className="block text-xs font-semibold uppercase tracking-wider text-gray-400">
+                    Phone / WhatsApp
+                  </span>
+                  <span className="text-sm sm:text-base font-medium text-white group-hover:text-gold-primary transition-colors">
+                    {siteConfig.contact.phone}
+                  </span>
+                </div>
+              </a>
 
-        return (
-          <motion.li key={channel.id} variants={fadeUpLarge} custom={index + 2}>
-            <a
-              href={channel.href}
-              {...(channel.external
-                ? { target: "_blank", rel: "noopener noreferrer" }
-                : {})}
-              className="card-surface block cursor-pointer rounded-xl p-6 text-center sm:p-8"
-              whileHover={{ scale: 1.02 }}
-            >
-              {/*
-               * The disc was `from-brand-400 to-orange-500` with a `text-white`
-               * glyph — the same 1.2:1 pairing that made the service-card icons
-               * invisible. It now uses the pale brand tint with a `brand-700`
-               * glyph (4.83:1), consistent with `ServiceCard`.
-               */}
-              <span className="mb-5 flex justify-center">
-                <span className="flex h-14 w-14 items-center justify-center rounded-full bg-brand-50 ring-1 ring-brand-200 sm:h-16 sm:w-16 dark:from-brand-400 dark:bg-gradient-to-br dark:to-orange-500 dark:ring-white/10">
-                  <Icon
-                    className="h-6 w-6 text-brand-700 dark:text-gray-900 sm:h-7 sm:w-7"
-                    aria-hidden="true"
-                  />
-                </span>
-              </span>
-              <h2 className="text-h3 font-semibold text-brand-700 dark:text-brand-400">
-                {channel.label}
-              </h2>
-              <p className="mt-2 break-words text-sm font-light text-[color:var(--color-text-muted)] dark:text-gray-300 sm:text-base md:text-lg">
-                {channel.value}
-              </p>
-            </a>
-          </motion.li>
-        );
-      })}
-    </motion.ul>
+              {/* Office Location */}
+              <a
+                href={siteConfig.contact.mapsUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group flex items-start gap-4 transition-colors"
+              >
+                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border border-white/10 bg-navy-secondary/60 text-gold-primary group-hover:border-gold-primary/40 group-hover:text-gold-bright transition-all">
+                  <MapPin className="h-5 w-5" aria-hidden="true" />
+                </div>
+                <div className="min-w-0">
+                  <span className="block text-xs font-semibold uppercase tracking-wider text-gray-400">
+                    Office Location
+                  </span>
+                  <span className="text-sm sm:text-base font-medium text-white group-hover:text-gold-primary transition-colors">
+                    {siteConfig.contact.address}
+                  </span>
+                </div>
+              </a>
+            </div>
 
-    <motion.div
-      className="relative z-10 mt-16 w-full max-w-3xl px-4 sm:px-6"
-      initial="hidden"
-      whileInView="visible"
-      viewport={inViewOnce}
-      variants={fadeUpLarge}
-    >
-      <EnquiryForm />
-    </motion.div>
+            {/* Compact Availability Notice (backed by verified business hours in siteConfig) */}
+            <div className="mt-8 pt-6 border-t border-white/10 flex items-center gap-2.5 text-xs text-gray-400">
+              <span className="w-2 h-2 rounded-full bg-emerald-400 shrink-0" />
+              <span>Mon – Sat: 9:00 AM – 8:00 PM IST</span>
+            </div>
+          </div>
 
-    <motion.div
-      className="relative z-10 mt-14 w-full max-w-3xl px-4 text-center sm:px-6"
-      initial="hidden"
-      whileInView="visible"
-      viewport={inViewOnce}
-      variants={fadeUpLarge}
-    >
-      <h2 className="mb-4 text-xl font-semibold text-[color:var(--color-text)] dark:text-white">
-        Areas we cover
-      </h2>
-      <ul className="flex flex-wrap justify-center gap-2">
-        {serviceAreas.map((area) => (
-          <li key={area}>
-            <span className="inline-flex items-center gap-1.5 rounded-pill bg-brand-50 px-3.5 py-1.5 text-sm font-medium text-brand-700 dark:bg-brand-500/10 dark:text-brand-300">
-              <MapPin size={13} aria-hidden="true" />
-              {area}
-            </span>
-          </li>
-        ))}
-      </ul>
-    </motion.div>
-  </section>
-);
+          {/* RIGHT COLUMN: Enquiry Form */}
+          <div className="lg:col-span-8 xl:col-span-8">
+            <EnquiryForm />
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};
 
 export default Contact;

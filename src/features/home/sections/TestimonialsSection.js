@@ -1,50 +1,65 @@
-import { motion } from "framer-motion";
-
-import {
-  fadeUp,
-  inViewOnce,
-  stagger,
-} from "../../../components/common/motion/motionVariants";
+import { Star, Quote } from "lucide-react";
 import { testimonials } from "../data/home.data";
 
-/** Social proof, rendered as a real `<figure>`/`<blockquote>` pair. */
+/**
+ * TestimonialsSection — Clean social proof cards for Sri Simbha.
+ *
+ * Implements:
+ * - Natural typography and balanced spacing without oversized odd fonts
+ * - Clean 2-column testimonial cards matching the agency redesign
+ * - Elimination of unwanted decorative badges and heavy blur layers
+ */
 const TestimonialsSection = () => (
-  <section className="bg-gradient-to-r from-white to-gray-100 section-y dark:from-slate-900 dark:to-slate-950">
-    <motion.h2
-      className="mb-14 text-center text-h2 font-bold text-gray-900 dark:text-brand-300 sm:text-4xl"
-      variants={fadeUp}
-      initial="hidden"
-      whileInView="visible"
-      viewport={inViewOnce}
-    >
-      What Clients Say
-    </motion.h2>
+  <section className="relative bg-navy-primary text-white px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 2xl:px-20 py-12 sm:py-16 border-t border-white/5">
+    <div className="mx-auto max-w-container w-full">
+      <div className="mb-8 sm:mb-10 text-center max-w-2xl mx-auto">
+        <h2 className="text-2xl sm:text-3xl font-bold text-white tracking-tight mb-2">
+          What Clients <span className="text-gold-primary">Say</span>
+        </h2>
+        <p className="text-sm sm:text-base text-gray-300 font-normal leading-relaxed">
+          Trusted by business founders and marketing teams across Visakhapatnam and Andhra Pradesh.
+        </p>
+      </div>
 
-    <motion.ul
-      className="mx-auto grid max-w-5xl gap-10 px-6 sm:grid-cols-2"
-      variants={stagger}
-      initial="hidden"
-      whileInView="visible"
-      viewport={inViewOnce}
-    >
-      {testimonials.map((item, index) => (
-        <motion.li
-          key={item.id}
-          className="rounded-2xl border border-gray-200 bg-[color:var(--color-surface)] p-6 transition-shadow hover:shadow-[var(--shadow-card-hover)] dark:border-white/10 dark:bg-white/10"
-          variants={fadeUp}
-          custom={index}
-        >
-          <figure>
-            <blockquote className="text-lg italic leading-relaxed text-gray-800 dark:text-gray-300">
-              &ldquo;{item.quote}&rdquo;
-            </blockquote>
-            <figcaption className="mt-4 font-bold tracking-wide text-brand-700 dark:text-brand-400">
-              — {item.name}
-            </figcaption>
-          </figure>
-        </motion.li>
-      ))}
-    </motion.ul>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-5 lg:gap-6">
+        {testimonials.map((item) => (
+          <div
+            key={item.id}
+            className="rounded-2xl border border-white/10 bg-navy-secondary/60 p-6 sm:p-7 backdrop-blur-sm shadow-md flex flex-col justify-between"
+          >
+            <div>
+              <div className="flex items-center justify-between mb-4">
+                <div className="flex items-center gap-1 text-gold-primary">
+                  {[...Array(5)].map((_, i) => (
+                    <Star key={i} size={14} fill="currentColor" />
+                  ))}
+                </div>
+                <Quote className="w-5 h-5 text-gold-primary/30" />
+              </div>
+
+              <figure>
+                <blockquote className="text-sm sm:text-base font-normal italic leading-relaxed text-gray-200 mb-5">
+                  &ldquo;{item.quote}&rdquo;
+                </blockquote>
+                <figcaption className="flex items-center gap-3 pt-3 border-t border-white/10">
+                  <div className="w-9 h-9 rounded-full bg-navy-primary border border-white/10 flex items-center justify-center font-bold text-gold-primary text-xs">
+                    {item.name.charAt(0)}
+                  </div>
+                  <div>
+                    <span className="font-bold text-white block text-sm">
+                      {item.name}
+                    </span>
+                    <span className="text-xs text-gray-400 block">
+                      Verified Campaign Partner
+                    </span>
+                  </div>
+                </figcaption>
+              </figure>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
   </section>
 );
 

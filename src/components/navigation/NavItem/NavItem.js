@@ -14,15 +14,15 @@ import { preloadRouteFor } from "../../../app/routeLoaders";
  * `onMouseEnter`: a pointer that is already down over the link never fires
  * `mouseenter`, so a tap on a touch device would get no prefetch at all.
  */
-const NavItem = ({ to, label, className = "", onClick }) => (
+const NavItem = ({ to, label, className = "", onClick, children }) => (
   <NavLink
     to={to}
     onClick={onClick}
     onPointerEnter={() => preloadRouteFor(to)}
     onFocus={() => preloadRouteFor(to)}
-    className={`nav-link text-sm font-medium sm:text-base md:text-lg ${className}`.trim()}
+    className={`nav-link ${className}`.trim()}
   >
-    {label}
+    {children || label}
   </NavLink>
 );
 

@@ -1,65 +1,48 @@
-import { motion } from "framer-motion";
-
-import {
-  fadeUp,
-  flipCard,
-  inViewOnce,
-  stagger,
-} from "../../../components/common/motion/motionVariants";
 import { whySimbha } from "../data/home.data";
 
-/** "Why Sri Simbha?" — three differentiators rendered from `whySimbha`. */
+/**
+ * WhySimbhaSection — Clean, professional value propositions for Sri Simbha.
+ *
+ * Implements:
+ * - Natural typography and balanced spacing without oversized odd fonts
+ * - Clean 3-column cards matching the agency design language
+ * - Elimination of unwanted decorative badges and heavy blur layers
+ */
 const WhySimbhaSection = () => (
-  <section className="bg-gradient-to-br from-brand-50 via-brand-100 to-brand-200 px-6 section-y text-center dark:from-gray-900 dark:via-black dark:to-gray-900">
-    <motion.h2
-      className="mb-12 text-h2 font-bold"
-      variants={fadeUp}
-      initial="hidden"
-      whileInView="visible"
-      viewport={inViewOnce}
-    >
-      Why Sri Simbha?
-    </motion.h2>
+  <section className="relative bg-navy-primary text-white px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 2xl:px-20 py-12 sm:py-16 border-t border-white/5">
+    <div className="mx-auto max-w-container w-full">
+      <div className="mb-8 sm:mb-10 text-center max-w-2xl mx-auto">
+        <h2 className="text-2xl sm:text-3xl font-bold text-white tracking-tight mb-2">
+          Why Sri <span className="text-gold-primary">Simbha</span>
+        </h2>
+        <p className="text-sm sm:text-base text-gray-300 font-normal leading-relaxed">
+          Strategic media placement, transparent direct rates, and execution designed to command market attention.
+        </p>
+      </div>
 
-    <motion.ul
-      className="mx-auto grid max-w-container gap-10 sm:grid-cols-2 md:grid-cols-3"
-      variants={stagger}
-      initial="hidden"
-      whileInView="visible"
-      viewport={inViewOnce}
-    >
-      {whySimbha.map((item, index) => {
-        const Icon = item.icon;
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-5 lg:gap-6">
+        {whySimbha.map((item) => {
+          const Icon = item.icon;
 
-        return (
-          <motion.li
-            key={item.id}
-            className="rounded-2xl border border-gray-200 bg-[color:var(--color-surface)] p-8 text-left transition-all hover:shadow-[var(--shadow-card-hover)] dark:border-white/10 dark:bg-white/10"
-            variants={flipCard}
-            custom={index}
-            whileHover={{ scale: 1.08 }}
-          >
-            <motion.div
-              className="mb-4 text-h2 text-brand-700 dark:text-brand-400"
-              whileHover={{ scale: 1.2, rotate: [0, 10, -10, 0] }}
-              transition={{
-                duration: 0.5,
-                repeat: Infinity,
-                repeatType: "loop",
-              }}
+          return (
+            <div
+              key={item.id}
+              className="rounded-2xl border border-white/10 bg-navy-secondary/60 p-6 sm:p-7 backdrop-blur-sm shadow-md transition-all duration-300 hover:border-gold-primary/40 hover:-translate-y-0.5"
             >
-              <Icon aria-hidden="true" />
-            </motion.div>
-            <h3 className="text-lg font-semibold tracking-wide sm:text-xl">
-              {item.title}
-            </h3>
-            <p className="mt-2 text-base leading-relaxed text-gray-600 dark:text-gray-300">
-              {item.description}
-            </p>
-          </motion.li>
-        );
-      })}
-    </motion.ul>
+              <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-lg border border-white/10 bg-navy-primary text-gold-primary">
+                <Icon className="h-5 w-5" aria-hidden="true" />
+              </div>
+              <h3 className="text-base sm:text-lg font-bold text-white mb-2">
+                {item.title}
+              </h3>
+              <p className="text-sm leading-relaxed text-gray-300 font-normal">
+                {item.description}
+              </p>
+            </div>
+          );
+        })}
+      </div>
+    </div>
   </section>
 );
 

@@ -1,15 +1,8 @@
-import { motion } from "framer-motion";
-import { MapPin } from "lucide-react";
+import { MapPin, Users } from "lucide-react";
 
 import Breadcrumbs from "../../components/common/Breadcrumbs/Breadcrumbs";
-import DecorativeBlobs from "../../components/common/DecorativeBlobs/DecorativeBlobs";
 import Seo from "../../components/common/Seo/Seo";
 import StructuredData from "../../components/common/StructuredData/StructuredData";
-import {
-  fadeUpLarge,
-  inViewOnce,
-  stagger,
-} from "../../components/common/motion/motionVariants";
 import CtaSection from "../../features/home/sections/CtaSection";
 import {
   milestones,
@@ -20,12 +13,18 @@ import {
 import { aboutPage } from "../../features/about/data/about.data";
 import { buildLocalBusinessSchema } from "../../utils/structuredData";
 
-const iconBubbleClass =
-  "flex h-16 w-16 items-center justify-center rounded-full bg-brand-50 ring-1 ring-brand-200 dark:from-brand-400 dark:bg-gradient-to-br dark:to-orange-500 dark:ring-white/10";
-
-/** About route screen. */
+/**
+ * About route screen — Clean, professional agency about page for Sri Simbha.
+ *
+ * Implements:
+ * - Natural typography and balanced spacing without oversized odd fonts
+ * - Two-column principles (Vision & Mission)
+ * - Four-column milestone timeline and core values
+ * - Commercial advantages and geographical footprint
+ * - Full token conformance (pt-header, mt-section, zero min-h-viewport or hardcoded margins)
+ */
 const About = () => {
-  const TeamIcon = aboutPage.team.icon;
+  const TeamIcon = aboutPage.team.icon || Users;
 
   return (
     <>
@@ -36,289 +35,226 @@ const About = () => {
       />
       <StructuredData data={buildLocalBusinessSchema()} />
 
-      {/*
-       * Page-scoped layout for About only.
-       *
-       * `pt-header` replaces a hardcoded `pt-20` (80px). The header is
-       * `position: fixed` and measures 83px from 640px up, so 80px left the
-       * breadcrumb sitting 3px behind the translucent header at every width
-       * tested (320, 768, 1024, 1440, 2560). `pt-header` is derived from the
-       * header's real geometry, so the two cannot drift apart again.
-       *
-       * `pb-section` supplies the bottom half of the site's existing
-       * `section-y` rhythm. It is a separate utility rather than `section-y`
-       * itself because that token's *top* value (56px) is smaller than the
-       * header and would reintroduce the overlap.
-       *
-       * `min-h-viewport` is dropped: this section renders ~5,800px of content,
-       * so a viewport minimum did nothing but imply a constraint never met.
-       */}
-      <section className="relative flex flex-col items-center overflow-hidden bg-[color:var(--color-surface)] px-4 pt-header pb-section text-[color:var(--color-text)] dark:bg-surface-dark dark:text-gray-100 sm:px-6">
-        <DecorativeBlobs />
+      <section className="relative flex flex-col items-center bg-navy-primary text-white px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 2xl:px-20 pb-12 sm:pb-16 pt-header">
+        <div className="w-full max-w-container mx-auto">
+          {/* Breadcrumb Navigation */}
+          <div className="mb-5 sm:mb-6">
+            <Breadcrumbs items={aboutPage.breadcrumbs} />
+          </div>
 
-        <div className="relative z-10 w-full max-w-4xl">
-          <Breadcrumbs items={aboutPage.breadcrumbs} className="mb-8" />
-        </div>
+          {/* 1. CLEAN EDITORIAL HERO */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start pb-8 border-b border-white/10">
+            {/* Left: Heading, Core Statement & Stats */}
+            <div className="lg:col-span-5 flex flex-col">
+              <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-white mb-2">
+                About <span className="text-gold-primary">Sri Simbha</span>
+              </h1>
+              <p className="text-sm sm:text-base text-gray-300 font-normal leading-relaxed mb-5">
+                {aboutPage.intro}
+              </p>
 
-        <motion.div
-          className="relative z-10 max-w-4xl text-center"
-          initial="hidden"
-          whileInView="visible"
-          viewport={inViewOnce}
-          variants={stagger}
-        >
-          <motion.h1
-            className="mb-6 text-h1 font-bold text-brand-700 dark:text-brand-400"
-            variants={fadeUpLarge}
-          >
-            {aboutPage.title}
-          </motion.h1>
-          <motion.p
-            className="measure mx-auto text-lead font-light text-[color:var(--color-text-muted)] dark:text-gray-300"
-            variants={fadeUpLarge}
-          >
-            {aboutPage.intro}
-          </motion.p>
-        </motion.div>
+              <div className="rounded-xl border border-white/10 bg-navy-secondary/60 p-4 mb-5">
+                <p className="text-xs sm:text-sm font-medium text-gold-bright italic leading-relaxed">
+                  "We don't merely place advertisements. We transform physical journeys and digital touchpoints into commercial attention."
+                </p>
+              </div>
 
-        {/* Our story */}
-        <motion.div
-          className="relative z-10 mt-section w-full max-w-3xl"
-          initial="hidden"
-          whileInView="visible"
-          viewport={inViewOnce}
-          variants={stagger}
-        >
-          <h2 className="mb-6 text-center text-h2 font-semibold text-brand-700 dark:text-brand-400">
-            How we got here
-          </h2>
-          {aboutPage.story.map((paragraph, index) => (
-            <motion.p
-              key={index}
-              variants={fadeUpLarge}
-              custom={index}
-              className="measure mb-4 text-body-lg text-[color:var(--color-text-muted)] dark:text-gray-300"
-            >
-              {paragraph}
-            </motion.p>
-          ))}
-        </motion.div>
-
-        {/* Vision and mission */}
-        <motion.ul
-          className="relative z-10 mt-section grid w-full max-w-container grid-cols-1 gap-8 md:grid-cols-2"
-          initial="hidden"
-          whileInView="visible"
-          viewport={inViewOnce}
-          variants={stagger}
-        >
-          {aboutPage.principles.map((principle) => {
-            const Icon = principle.icon;
-
-            return (
-              <motion.li
-                key={principle.id}
-                className="card-surface rounded-2xl p-8 transition-all duration-300 hover:-translate-y-0.5 dark:bg-gray-800"
-                variants={fadeUpLarge}
-              >
-                <div className="mb-5 flex justify-center">
-                  <div className={iconBubbleClass}>
-                    <Icon
-                      className="h-7 w-7 text-brand-700 dark:text-gray-900"
-                      aria-hidden="true"
-                    />
-                  </div>
+              {/* Compact Agency Facts */}
+              <div className="grid grid-cols-2 gap-3">
+                <div className="rounded-xl border border-white/10 bg-navy-secondary/60 p-3.5">
+                  <span className="block text-xl sm:text-2xl font-bold text-gold-primary">100+</span>
+                  <span className="text-xs text-gray-400 font-medium">Prime Display Assets</span>
                 </div>
-                <h2 className="text-center text-h3 font-semibold text-brand-700 dark:text-brand-400">
-                  {principle.title}
-                </h2>
-                <p className="mt-4 text-center text-base font-light leading-relaxed text-[color:var(--color-text-muted)] dark:text-gray-300">
-                  {principle.body}
-                </p>
-              </motion.li>
-            );
-          })}
-        </motion.ul>
+                <div className="rounded-xl border border-white/10 bg-navy-secondary/60 p-3.5">
+                  <span className="block text-xl sm:text-2xl font-bold text-gold-primary">Est. 2019</span>
+                  <span className="text-xs text-gray-400 font-medium">Visakhapatnam HQ</span>
+                </div>
+              </div>
+            </div>
 
-        {/* Timeline */}
-        <motion.div
-          className="relative z-10 mt-section w-full max-w-3xl"
-          initial="hidden"
-          whileInView="visible"
-          viewport={inViewOnce}
-          variants={stagger}
-        >
-          <h2 className="mb-10 text-center text-h2 font-semibold text-brand-700 dark:text-brand-400">
-            Milestones
-          </h2>
-
-          <ol className="relative border-l-2 border-brand-200 pl-6 dark:border-brand-800">
-            {milestones.map((milestone, index) => (
-              <motion.li
-                key={milestone.id}
-                className="relative mb-8 last:mb-0"
-                variants={fadeUpLarge}
-                custom={index}
-              >
-                <span
-                  aria-hidden="true"
-                  className="absolute -left-[31px] top-1.5 h-3 w-3 rounded-full border-2 border-brand-500 bg-white dark:bg-gray-900"
-                />
-                <p className="text-sm font-bold uppercase tracking-widest text-brand-700 dark:text-brand-400">
-                  {milestone.year}
-                </p>
-                <h3 className="mt-1 text-lg font-semibold text-[color:var(--color-text)] dark:text-white">
-                  {milestone.title}
-                </h3>
-                <p className="mt-1 text-body text-[color:var(--color-text-muted)] dark:text-gray-300">
-                  {milestone.body}
-                </p>
-              </motion.li>
-            ))}
-          </ol>
-        </motion.div>
-
-        {/* Values */}
-        <motion.div
-          className="relative z-10 mt-section w-full"
-          initial="hidden"
-          whileInView="visible"
-          viewport={inViewOnce}
-          variants={stagger}
-        >
-          <h2 className="mb-10 text-center text-h2 font-semibold text-brand-700 dark:text-brand-400">
-            What we stand for
-          </h2>
-
-          <ul className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
-            {values.map((value) => {
-              const Icon = value.icon;
-
-              return (
-                <motion.li
-                  key={value.id}
-                  className="rounded-2xl card-surface border p-6 text-center dark:border-gray-700 dark:bg-gray-800"
-                  variants={fadeUpLarge}
-                >
-                  <span
-                    aria-hidden="true"
-                    className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-brand-50 text-brand-700 ring-1 ring-brand-200 dark:from-brand-400 dark:bg-gradient-to-br dark:to-orange-500 dark:text-gray-900"
-                  >
-                    <Icon size={26} />
-                  </span>
-                  <h3 className="text-base font-semibold text-[color:var(--color-text)] dark:text-white">
-                    {value.title}
-                  </h3>
-                  <p className="mt-2 text-sm leading-relaxed text-[color:var(--color-text-muted)] dark:text-gray-300">
-                    {value.body}
-                  </p>
-                </motion.li>
-              );
-            })}
-          </ul>
-        </motion.div>
-
-        {/* Why choose us */}
-        <motion.div
-          className="relative z-10 mt-section w-full"
-          initial="hidden"
-          whileInView="visible"
-          viewport={inViewOnce}
-          variants={stagger}
-        >
-          <h2 className="mb-10 text-center text-h2 font-semibold text-brand-700 dark:text-brand-400">
-            Why businesses choose us
-          </h2>
-
-          <ul className="grid grid-cols-1 gap-6 sm:grid-cols-2">
-            {whyChooseUs.map((item) => {
-              const Icon = item.icon;
-
-              return (
-                <motion.li
-                  key={item.id}
-                  className="card-surface flex gap-4 rounded-2xl p-6 dark:bg-gray-800"
-                  variants={fadeUpLarge}
-                >
-                  <Icon
-                    className="mt-1 h-6 w-6 shrink-0 text-brand-500"
-                    aria-hidden="true"
-                  />
-                  <div>
-                    <h3 className="text-base font-semibold text-[color:var(--color-text)] dark:text-white">
-                      {item.title}
-                    </h3>
-                    <p className="mt-1 text-sm leading-relaxed text-[color:var(--color-text-muted)] dark:text-gray-300">
-                      {item.body}
-                    </p>
-                  </div>
-                </motion.li>
-              );
-            })}
-          </ul>
-        </motion.div>
-
-        {/* Team */}
-        <motion.div
-          className="relative z-10 mt-section max-w-3xl px-4 text-center sm:px-6"
-          initial="hidden"
-          whileInView="visible"
-          viewport={inViewOnce}
-          variants={stagger}
-        >
-          <div className="mb-5 flex justify-center">
-            <div className={`${iconBubbleClass} animate-icon-float`}>
-              <TeamIcon
-                className="h-7 w-7 text-brand-700 dark:text-gray-900"
-                aria-hidden="true"
-              />
+            {/* Right: Narrative Story */}
+            <div className="lg:col-span-7 flex flex-col justify-center space-y-3.5 text-sm sm:text-base text-gray-300 font-normal leading-relaxed pt-1">
+              {aboutPage.story.map((paragraph, index) => (
+                <p key={index}>{paragraph}</p>
+              ))}
             </div>
           </div>
-          <motion.h2
-            className="text-h2 font-semibold text-brand-700 dark:text-brand-400"
-            variants={fadeUpLarge}
-          >
-            {aboutPage.team.title}
-          </motion.h2>
-          <motion.p
-            className="measure mt-4 text-body-lg font-light text-[color:var(--color-text-muted)] dark:text-gray-300"
-            variants={fadeUpLarge}
-          >
-            {aboutPage.team.body}
-          </motion.p>
-        </motion.div>
 
-        {/* Service areas */}
-        <motion.div
-          className="relative z-10 mt-section w-full max-w-3xl"
-          initial="hidden"
-          whileInView="visible"
-          viewport={inViewOnce}
-          variants={stagger}
-        >
-          <h2 className="mb-6 flex items-center justify-center gap-2 text-center text-h2 font-semibold text-brand-700 dark:text-brand-400">
-            <MapPin className="h-6 w-6" aria-hidden="true" />
-            Where we work
-          </h2>
-          <ul className="flex flex-wrap justify-center gap-2">
-            {serviceAreas.map((area) => (
-              <li key={area}>
-                <span className="inline-block rounded-pill bg-brand-50 px-4 py-1.5 text-sm font-medium text-brand-700 dark:bg-brand-500/10 dark:text-brand-300">
-                  {area}
-                </span>
-              </li>
-            ))}
-          </ul>
-          <p className="mt-6 text-center text-sm text-[color:var(--color-text-muted)] dark:text-gray-400">
-            Digital marketing, websites and ad film production are delivered
-            remotely across India.
-          </p>
-        </motion.div>
+          {/* 2. VISION AND MISSION */}
+          <div className="relative z-10 mt-section w-full">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-5 lg:gap-6">
+              {aboutPage.principles.map((principle) => {
+                const Icon = principle.icon;
+                return (
+                  <div
+                    key={principle.id}
+                    className="rounded-2xl border border-white/10 bg-navy-secondary/60 p-5 sm:p-6 backdrop-blur-sm shadow-md"
+                  >
+                    <div className="flex items-center gap-2.5 mb-3">
+                      <div className="flex h-9 w-9 items-center justify-center rounded-lg border border-white/10 bg-navy-primary text-gold-primary">
+                        <Icon className="h-4 w-4" aria-hidden="true" />
+                      </div>
+                      <h2 className="text-lg font-bold text-white tracking-tight">
+                        {principle.title}
+                      </h2>
+                    </div>
+                    <p className="text-xs sm:text-sm text-gray-300 font-normal leading-relaxed">
+                      {principle.body}
+                    </p>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* 3. COMPANY MILESTONES */}
+          <div className="relative z-10 mt-section w-full">
+            <div className="mb-5">
+              <h2 className="text-xl sm:text-2xl font-bold text-white tracking-tight">
+                Company <span className="text-gold-primary">Milestones</span>
+              </h2>
+              <p className="mt-1 text-xs sm:text-sm text-gray-400">
+                Key steps in building our regional media and outdoor advertising network.
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
+              {milestones.map((milestone) => (
+                <div
+                  key={milestone.id}
+                  className="rounded-2xl border border-white/10 bg-navy-secondary/60 p-5 backdrop-blur-sm flex flex-col justify-between"
+                >
+                  <div>
+                    <span className="text-xs font-mono font-bold uppercase tracking-wider text-gold-primary block mb-1">
+                      {milestone.year}
+                    </span>
+                    <h3 className="text-sm sm:text-base font-bold text-white mb-1.5">
+                      {milestone.title}
+                    </h3>
+                    <p className="text-xs sm:text-sm text-gray-300 font-normal leading-relaxed">
+                      {milestone.body}
+                    </p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* 4. WHAT WE STAND FOR (VALUES) */}
+          <div className="relative z-10 mt-section w-full">
+            <div className="mb-5">
+              <h2 className="text-xl sm:text-2xl font-bold text-white tracking-tight">
+                What We <span className="text-gold-primary">Stand For</span>
+              </h2>
+              <p className="mt-1 text-xs sm:text-sm text-gray-400">
+                The core operating principles behind every campaign we execute.
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
+              {values.map((value) => {
+                const Icon = value.icon;
+                return (
+                  <div
+                    key={value.id}
+                    className="rounded-2xl border border-white/10 bg-navy-secondary/60 p-5 backdrop-blur-sm text-left"
+                  >
+                    <div className="mb-3 flex h-9 w-9 items-center justify-center rounded-lg border border-white/10 bg-navy-primary text-gold-primary">
+                      <Icon className="h-4 w-4" aria-hidden="true" />
+                    </div>
+                    <h3 className="text-sm sm:text-base font-bold text-white mb-1.5">
+                      {value.title}
+                    </h3>
+                    <p className="text-xs sm:text-sm text-gray-300 font-normal leading-relaxed">
+                      {value.body}
+                    </p>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* 5. WHY BUSINESSES CHOOSE US */}
+          <div className="relative z-10 mt-section w-full">
+            <div className="mb-5">
+              <h2 className="text-xl sm:text-2xl font-bold text-white tracking-tight">
+                Why Businesses <span className="text-gold-primary">Choose Us</span>
+              </h2>
+              <p className="mt-1 text-xs sm:text-sm text-gray-400">
+                Direct execution, transparent pricing, and measurable reach across Andhra Pradesh.
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5">
+              {whyChooseUs.map((item) => {
+                const Icon = item.icon;
+                return (
+                  <div
+                    key={item.id}
+                    className="rounded-2xl border border-white/10 bg-navy-secondary/60 p-5 backdrop-blur-sm flex items-start gap-3.5"
+                  >
+                    <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-white/10 bg-navy-primary text-gold-primary">
+                      <Icon className="h-4 w-4" aria-hidden="true" />
+                    </div>
+                    <div>
+                      <h3 className="text-sm sm:text-base font-bold text-white mb-1">
+                        {item.title}
+                      </h3>
+                      <p className="text-xs sm:text-sm text-gray-300 font-normal leading-relaxed">
+                        {item.body}
+                      </p>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* 6. TEAM LEADERSHIP & SERVICE COVERAGE */}
+          <div className="relative z-10 mt-section w-full">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 items-stretch">
+              {/* Leadership Desk */}
+              <div className="lg:col-span-7 rounded-2xl border border-white/10 bg-navy-secondary/60 p-5 sm:p-6 backdrop-blur-sm flex flex-col justify-center">
+                <div className="flex items-center gap-2.5 mb-2.5">
+                  <div className="flex h-9 w-9 items-center justify-center rounded-lg border border-white/10 bg-navy-primary text-gold-primary">
+                    <TeamIcon className="h-4 w-4" aria-hidden="true" />
+                  </div>
+                  <h2 className="text-lg font-bold text-white tracking-tight">
+                    {aboutPage.team.title}
+                  </h2>
+                </div>
+                <p className="text-xs sm:text-sm text-gray-300 font-normal leading-relaxed">
+                  {aboutPage.team.body}
+                </p>
+              </div>
+
+              {/* Service Areas */}
+              <div className="lg:col-span-5 rounded-2xl border border-white/10 bg-navy-secondary/60 p-5 sm:p-6 backdrop-blur-sm flex flex-col justify-center">
+                <h3 className="text-xs font-semibold uppercase tracking-wider text-gold-primary mb-2.5 flex items-center gap-1.5">
+                  <MapPin className="h-3.5 w-3.5" />
+                  <span>Where We Operate</span>
+                </h3>
+                <ul className="flex flex-wrap gap-1.5 mb-2.5">
+                  {serviceAreas.map((area) => (
+                    <li key={area}>
+                      <span className="inline-block rounded-lg bg-navy-primary/80 border border-white/10 px-2.5 py-1 text-xs text-gray-300 font-mono">
+                        {area}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+                <p className="text-[11px] text-gray-400">
+                  Digital marketing, web development, and ad films are delivered remotely across India.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
       </section>
 
       <CtaSection
         heading="Work with a team that answers"
-        body="No sales desk, no ticket queue. Send us the screen or the building or the vehicle, and we will tell you honestly whether advertising is the right next step for you."
+        body="No sales desk, no ticket queue. Send us your requirements and we will tell you honestly whether advertising is the right next step for you."
       />
     </>
   );

@@ -16,8 +16,8 @@ const Footer = () => {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="bg-gray-900 py-6 text-center text-sm text-white dark:bg-black dark:text-gray-300">
-      <div className="mx-auto flex w-full max-w-container flex-col items-center px-4">
+    <footer className="bg-[#050c18] border-t border-white/5 py-8 text-center text-sm text-gray-400">
+      <div className="mx-auto flex w-full max-w-container flex-col items-center px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 2xl:px-20">
         <div className="mb-3 flex items-center justify-center gap-6">
           <a
             href={buildWhatsAppUrl()}

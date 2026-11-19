@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en-IN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#081329" />
+
+    <script>
+      (function () {
+        var STORAGE_KEY = "simbha-theme";
+        var DEFAULT_THEME = "dark";
+        var root = document.documentElement;
+        var theme = DEFAULT_THEME;
+
+        try {
+          var stored = window.localStorage.getItem(STORAGE_KEY);
+          if (stored === "light" || stored === "dark") {
+            theme = stored;
+          } else if (stored !== null) {
+            window.localStorage.setItem(STORAGE_KEY, DEFAULT_THEME);
+          }
+        } catch (error) {}
+
+        var isDark = theme === "dark";
+        root.classList.toggle("dark", isDark);
+        root.style.colorScheme = theme;
+
+        var meta = document.querySelector('meta[name="theme-color"]');
+        if (meta) {
+          meta.setAttribute("content", isDark ? "#081329" : "#f59e0b");
+        }
+      })();
+    </script>
+
+    <title>Sri Simbha Ad Solutions — We Don’t Just Show Ads. We Command Attention.</title>
+    <meta
+      name="description"
+      content="Sri Simbha Ad Solutions is a Visakhapatnam based advertising agency offering LED display ads, tea cup printing, digital marketing, website building, ads on wheels and ad film production."
+    />
+    <link rel="canonical" href="https://simbha.vercel.app/" />
+
+    <meta property="og:site_name" content="Sri Simbha Ad Solutions" />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="en_IN" />
+    <meta property="og:url" content="https://simbha.vercel.app/" />
+    <meta
+      property="og:title"
+      content="Sri Simbha Ad Solutions — We Don’t Just Show Ads. We Command Attention."
+    />
+    <meta
+      property="og:description"
+      content="LED display ads, tea cup printing, digital marketing, website building, ads on wheels and ad film production."
+    />
+    <meta
+      property="og:image"
+      content="/og-image.png"
+    />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      name="twitter:title"
+      content="Sri Simbha Ad Solutions — We Don’t Just Show Ads. We Command Attention."
+    />
+    <meta
+      name="twitter:description"
+      content="LED display ads, tea cup printing, digital marketing, website building, ads on wheels and ad film production."
+    />
+    <meta
+      name="twitter:image"
+      content="/og-image.png"
+    />
+
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <link rel="manifest" href="/site.webmanifest" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Manrope:wght@500;600;700;800&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap"
+    />
+  </head>
+  <body>
+    <noscript>
+      Sri Simbha Ad Solutions — LED display ads, tea cup printing, digital
+      marketing, website building, ads on wheels and ad film production.
+    </noscript>
+    <div id="root"></div>
+    <script type="module" src="/src/index.jsx"></script>
+  </body>
+</html>

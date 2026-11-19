@@ -1,4 +1,5 @@
 # dependencies
+node_modules/
 /node_modules
 /.pnp
 .pnp.js
@@ -8,9 +9,16 @@
 
 # production
 /build
+build/
+/dist
+dist/
 
-# env files — only .env.example is committed
+# env files — only .env.example files are committed
 .env
+.env.*
+!.env.example
+backend/.env
+!backend/.env.example
 .env.local
 .env.development.local
 .env.test.local

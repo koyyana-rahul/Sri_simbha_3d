@@ -1,25 +1,14 @@
 import { useEffect, useRef, useState } from "react";
-import { motion } from "framer-motion";
-
-import {
-  fadeUp,
-  inViewOnce,
-  stagger,
-} from "../../../components/common/motion/motionVariants";
-import { usePrefersReducedMotion } from "../../../hooks";
 import { companyStats } from "../../../data/company.data";
+import { usePrefersReducedMotion } from "../../../hooks";
 
 /**
- * Animated statistics band.
+ * StatsSection — Clean, professional agency metrics row.
  *
- * Counts up once, when the band first scrolls into view, and then stops — a
- * number that never stops changing is unreadable and looks like a bug.
- *
- * The animation is driven by `requestAnimationFrame` rather than a library, and
- * it is skipped entirely for visitors who prefer reduced motion, who get the
- * final value immediately. The `<span>` holding the number carries the real
- * value as its text content, so the figure is correct in the accessibility tree
- * and in the DOM even while the counter is still running.
+ * Implements:
+ * - Natural, comfortable typography without oversized odd numerals
+ * - Subtle glass surface matching the agency redesign
+ * - Smooth accessible count-up animation respecting prefers-reduced-motion
  */
 const StatsSection = () => {
   const prefersReducedMotion = usePrefersReducedMotion();
@@ -47,14 +36,12 @@ const StatsSection = () => {
         hasRun.current = true;
         observer.disconnect();
 
-        const duration = 1400;
+        const duration = 1200;
         const start = performance.now();
 
         const tick = (now) => {
           const progress = Math.min((now - start) / duration, 1);
-          // easeOutCubic, so the number decelerates instead of stopping dead.
           const eased = 1 - (1 - progress) ** 3;
-
           setValues(companyStats.map((stat) => Math.round(stat.value * eased)));
 
           if (progress < 1) requestAnimationFrame(tick);
@@ -70,48 +57,29 @@ const StatsSection = () => {
   }, [prefersReducedMotion]);
 
   return (
-    /*
-     * `from-brand-500 to-orange-500` with white text measured 2.15:1 at the
-     * light end and 2.80:1 at the dark end — the "95+" numerals were barely
-     * readable, in *both* themes, because this band has no `dark:` variant and
-     * so was identical either way.
-     *
-     * The ramp is deepened to 700/700, which gives 5.02:1 and 5.90:1 against
-     * white. It is still unmistakably the brand amber and still a gradient
-     * across the band, so the section keeps its role as the one saturated
-     * moment on the page — it is simply readable now.
-     */
     <section
       ref={sectionRef}
       aria-label="Company statistics"
-      className="bg-gradient-to-r from-brand-700 to-orange-700 px-6 section-y-sm text-white sm:px-10"
+      className="relative bg-navy-primary text-white px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 2xl:px-20 py-10 sm:py-12 border-t border-white/5"
     >
-      <motion.dl
-        className="mx-auto grid max-w-container grid-cols-2 gap-8 text-center lg:grid-cols-4"
-        initial="hidden"
-        whileInView="visible"
-        viewport={inViewOnce}
-        variants={stagger}
-      >
-        {companyStats.map((stat, index) => (
-          <motion.div
-            key={stat.id}
-            variants={fadeUp}
-            custom={index}
-            // dt stays first in the DOM (correct for assistive tech) but the
-            // reversed column puts the number above its label visually.
-            className="flex flex-col-reverse"
-          >
-            <dt className="text-sm font-medium text-white/90 sm:text-base">
-              {stat.label}
-            </dt>
-            <dd className="text-3xl font-extrabold tracking-tight sm:text-4xl lg:text-5xl">
-              {values[index]}
-              {stat.suffix}
-            </dd>
-          </motion.div>
-        ))}
-      </motion.dl>
+      <div className="mx-auto max-w-container w-full">
+        <dl className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 rounded-2xl border border-white/10 bg-navy-secondary/60 p-6 sm:p-8 backdrop-blur-sm text-center shadow-lg">
+          {companyStats.map((stat, index) => (
+            <div
+              key={stat.id}
+              className="flex flex-col-reverse justify-center items-center py-2 px-3"
+            >
+              <dt className="text-xs sm:text-sm font-medium text-gray-300 mt-1.5">
+                {stat.label}
+              </dt>
+              <dd className="text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-gold-primary">
+                {values[index]}
+                {stat.suffix}
+              </dd>
+            </div>
+          ))}
+        </dl>
+      </div>
     </section>
   );
 };
