@@ -1,6 +1,6 @@
 import { useCallback, useState } from "react";
 import { useParams, Link } from "react-router-dom";
-import { MessageSquare, ArrowRight, CheckCircle2 } from "lucide-react";
+import { ArrowRight, CheckCircle2 } from "lucide-react";
 import { FaWhatsapp } from "react-icons/fa";
 
 import Breadcrumbs from "../../components/common/Breadcrumbs/Breadcrumbs";

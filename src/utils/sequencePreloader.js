@@ -23,7 +23,7 @@ class SequencePreloader {
   }
 
   initSequence(service) {
-    const { id, folder, fileNamePattern, frameCount } = service;
+    const { id, frameCount } = service;
     if (this.cache.has(id)) {
       return this.loadState.get(id);
     }

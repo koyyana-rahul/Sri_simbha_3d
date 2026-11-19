@@ -4,10 +4,6 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import {
   ChevronDown,
   Sparkles,
-  ArrowRight,
-  ShieldCheck,
-  Cpu,
-  Layers,
   ChevronRight,
 } from "lucide-react";
 
@@ -232,8 +228,6 @@ const CinematicHeroScrollytelling = ({ onOpenQuote, onExploreServices }) => {
       offCtx.globalCompositeOperation = "source-over";
 
       // 2. Spatial placement on canvas with contain-scaling
-      const imgRatio = nw / nh;
-      const canvasRatio = canvas.width / canvas.height;
       let drawW, drawH, drawX, drawY;
 
       // Per-service mobile layout and reflection tuning:
@@ -672,16 +666,6 @@ const CinematicHeroScrollytelling = ({ onOpenQuote, onExploreServices }) => {
     : serviceLocalProgress > 0.94 && activeServiceIndex < 5
     ? (1.0 - serviceLocalProgress) / 0.06
     : 1;
-  const stageProgress = serviceLocalProgress;
-  const stageLabel =
-    stageProgress < 0.25
-      ? "ASSEMBLED PRODUCT"
-      : stageProgress < 0.55
-      ? "CONTROLLED DISASSEMBLY"
-      : stageProgress < 0.8
-      ? "EXPLODED TECHNICAL VIEW"
-      : "PRECISION REASSEMBLY";
-
   return (
     <div ref={pinSectionRef} className="relative w-full h-screen bg-navy-primary text-white overflow-hidden select-none">
       {/* Real-Time Three.js WebGL 3D Studio Environment */}
