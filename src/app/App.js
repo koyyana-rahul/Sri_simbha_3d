@@ -17,7 +17,7 @@ import WhatsAppButton from "../components/floating/WhatsAppButton/WhatsAppButton
  *    fallback instead of a blank screen
  */
 const App = () => (
-  <div className="flex min-h-viewport flex-col font-inter">
+  <div className="flex min-h-viewport flex-col font-inter w-full overflow-x-hidden">
     <a className="skip-link" href="#main-content">
       Skip to main content
     </a>

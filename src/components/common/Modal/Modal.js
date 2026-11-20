@@ -101,7 +101,7 @@ const Modal = ({ isOpen, onClose, title, children }) => {
     <AnimatePresence>
       {isOpen && (
         <motion.div
-          className="fixed inset-0 z-[60] flex items-start justify-center overflow-auto bg-black/60 px-4 pt-24 sm:px-6 sm:pt-28"
+          className="fixed inset-0 z-[1200] flex items-start justify-center overflow-auto bg-black/60 px-3 sm:px-6 pt-16 sm:pt-28 pb-8"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
@@ -153,7 +153,7 @@ export const ImageModal = ({ isOpen, onClose, src, alt, title }) => (
       loading="eager"
       decoding="async"
       className={cx(
-        "max-h-[80vh] max-w-full rounded-xl border-4 shadow-2xl",
+        "max-h-[75vh] sm:max-h-[80vh] max-w-full rounded-xl border-2 sm:border-4 shadow-2xl object-contain",
         "border-white dark:border-brand-400"
       )}
     />

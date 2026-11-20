@@ -18,7 +18,7 @@ const ServiceCard = ({ service, index }) => {
     <Link
       to={service.path}
       aria-label={`${service.title} — learn more`}
-      className="group flex flex-col justify-between h-full rounded-2xl border border-white/10 bg-navy-secondary/60 p-6 sm:p-7 backdrop-blur-sm text-left transition-all duration-300 hover:border-gold-primary/40 hover:-translate-y-1 hover:shadow-xl"
+      className="group flex flex-col justify-between h-full rounded-2xl border border-white/10 bg-navy-secondary/60 p-5 sm:p-7 backdrop-blur-sm text-left transition-all duration-300 hover:border-gold-primary/40 hover:-translate-y-1 hover:shadow-xl"
     >
       <div>
         {/* Top Meta Row: Number & Icon */}

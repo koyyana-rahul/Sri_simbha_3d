@@ -60,12 +60,12 @@ const About = () => {
               </div>
 
               {/* Compact Agency Facts */}
-              <div className="grid grid-cols-2 gap-3">
-                <div className="rounded-xl border border-white/10 bg-navy-secondary/60 p-3.5">
+              <div className="grid grid-cols-1 min-[360px]:grid-cols-2 gap-2.5 sm:gap-3">
+                <div className="rounded-xl border border-white/10 bg-navy-secondary/60 p-3 sm:p-3.5">
                   <span className="block text-xl sm:text-2xl font-bold text-gold-primary">100+</span>
                   <span className="text-xs text-gray-400 font-medium">Prime Display Assets</span>
                 </div>
-                <div className="rounded-xl border border-white/10 bg-navy-secondary/60 p-3.5">
+                <div className="rounded-xl border border-white/10 bg-navy-secondary/60 p-3 sm:p-3.5">
                   <span className="block text-xl sm:text-2xl font-bold text-gold-primary">Est. 2019</span>
                   <span className="text-xs text-gray-400 font-medium">Visakhapatnam HQ</span>
                 </div>

@@ -52,7 +52,7 @@ const Services = () => (
 
         <Link
           to="/contact"
-          className="gold-btn-primary inline-flex items-center justify-center gap-1.5 px-5 py-2.5 rounded-xl font-bold text-xs sm:text-sm text-navy-primary shadow-md hover:brightness-105 active:scale-[0.99] transition-all self-start md:self-auto shrink-0"
+          className="gold-btn-primary inline-flex items-center justify-center gap-1.5 px-5 py-2.5 rounded-xl font-bold text-xs sm:text-sm text-navy-primary shadow-md hover:brightness-105 active:scale-[0.99] transition-all self-start md:self-auto shrink-0 w-full sm:w-auto"
         >
           <span>Contact Us Today</span>
           <ArrowRight className="w-4 h-4" />
@@ -72,7 +72,7 @@ const Services = () => (
       </ul>
 
       {/* Compact Bottom Campaign Enquiry Strip */}
-      <div className="w-full rounded-2xl border border-white/10 bg-navy-secondary/60 p-6 sm:p-8 backdrop-blur-sm shadow-lg">
+      <div className="w-full rounded-2xl border border-white/10 bg-navy-secondary/60 p-5 min-[380px]:p-6 sm:p-8 backdrop-blur-sm shadow-lg">
         <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-5">
           <div className="max-w-2xl">
             <h2 className="text-lg sm:text-xl font-bold text-white tracking-tight mb-1.5">
@@ -83,10 +83,10 @@ const Services = () => (
             </p>
           </div>
 
-          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5 shrink-0">
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5 shrink-0 w-full sm:w-auto">
             <Link
               to="/contact"
-              className="gold-btn-primary inline-flex items-center justify-center gap-1.5 px-5 py-2.5 rounded-xl font-bold text-xs sm:text-sm text-navy-primary shadow-md hover:brightness-105 active:scale-[0.99] transition-all text-center"
+              className="gold-btn-primary inline-flex items-center justify-center gap-1.5 px-5 py-2.5 rounded-xl font-bold text-xs sm:text-sm text-navy-primary shadow-md hover:brightness-105 active:scale-[0.99] transition-all text-center w-full sm:w-auto"
             >
               <span>Send an Enquiry</span>
               <ArrowRight className="w-4 h-4" />
@@ -96,7 +96,7 @@ const Services = () => (
               href={`https://wa.me/${siteConfig.contact.whatsappNumber}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-xl border border-emerald-500/30 bg-emerald-950/30 text-emerald-400 text-xs sm:text-sm font-semibold hover:bg-emerald-900/40 hover:border-emerald-400 transition-all text-center"
+              className="inline-flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-xl border border-emerald-500/30 bg-emerald-950/30 text-emerald-400 text-xs sm:text-sm font-semibold hover:bg-emerald-900/40 hover:border-emerald-400 transition-all text-center w-full sm:w-auto"
             >
               <FaWhatsapp className="text-sm text-emerald-400" aria-hidden="true" />
               <span>Chat on WhatsApp</span>

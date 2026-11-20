@@ -79,11 +79,11 @@ const ServiceDetailPage = () => {
             </div>
 
             {/* Right: Direct Actions */}
-            <div className="flex flex-col sm:flex-row lg:flex-col gap-3 shrink-0">
-              <div className="flex flex-wrap gap-2.5">
+            <div className="flex flex-col sm:flex-row lg:flex-col gap-3 shrink-0 w-full sm:w-auto">
+              <div className="flex flex-col min-[480px]:flex-row flex-wrap gap-2.5 w-full sm:w-auto">
                 <Link
                   to="/contact"
-                  className="gold-btn-primary inline-flex items-center justify-center gap-1.5 px-5 py-2.5 rounded-xl font-bold text-xs sm:text-sm text-navy-primary shadow-md hover:brightness-105 active:scale-[0.99] transition-all"
+                  className="gold-btn-primary inline-flex items-center justify-center gap-1.5 px-5 py-2.5 rounded-xl font-bold text-xs sm:text-sm text-navy-primary shadow-md hover:brightness-105 active:scale-[0.99] transition-all w-full min-[480px]:w-auto text-center"
                 >
                   <span>Request Placements & Rates</span>
                   <ArrowRight className="w-4 h-4" />
@@ -93,7 +93,7 @@ const ServiceDetailPage = () => {
                   href={buildWhatsAppUrl(`Hi, I'm interested in ${service.title}. Could you share available placements and pricing?`)}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-xl border border-emerald-500/30 bg-emerald-950/30 text-emerald-400 text-xs sm:text-sm font-semibold hover:bg-emerald-900/40 hover:border-emerald-400 transition-all"
+                  className="inline-flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-xl border border-emerald-500/30 bg-emerald-950/30 text-emerald-400 text-xs sm:text-sm font-semibold hover:bg-emerald-900/40 hover:border-emerald-400 transition-all w-full min-[480px]:w-auto text-center"
                 >
                   <FaWhatsapp className="text-sm text-emerald-400" aria-hidden="true" />
                   <span>WhatsApp</span>

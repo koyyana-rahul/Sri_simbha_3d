@@ -9,7 +9,7 @@ import NavItem from "../NavItem/NavItem";
  */
 const Navbar = ({ onNavigate, className = "" }) => (
   <nav aria-label="Primary" className={className}>
-    <ul className="flex items-center justify-center space-x-6 xl:space-x-8 font-medium text-sm lg:text-[15px] whitespace-nowrap">
+    <ul className="flex items-center justify-center gap-3.5 lg:gap-4 xl:gap-7 font-medium text-sm lg:text-[14px] xl:text-[15px] whitespace-nowrap">
       {headerNavigationItems.map((item) => (
         <li key={item.id} className="relative">
           <NavItem to={item.path} label={item.label} onClick={onNavigate} />

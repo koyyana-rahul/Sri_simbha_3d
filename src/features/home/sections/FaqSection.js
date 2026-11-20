@@ -81,7 +81,7 @@ const FaqSection = () => {
                         aria-expanded={isOpen}
                         aria-controls={panelId}
                         onClick={() => setOpenId(isOpen ? null : faq.id)}
-                        className="flex w-full items-center justify-between p-4 sm:p-5 text-left font-semibold text-sm sm:text-base text-white hover:text-gold-primary transition-colors cursor-pointer"
+                        className="flex w-full items-center justify-between p-3.5 sm:p-5 text-left font-semibold text-sm sm:text-base text-white hover:text-gold-primary transition-colors cursor-pointer"
                       >
                         <span className="pr-4">{faq.question}</span>
                         <Plus
@@ -99,7 +99,7 @@ const FaqSection = () => {
                         id={panelId}
                         role="region"
                         aria-labelledby={buttonId}
-                        className="px-4 pb-4 sm:px-5 sm:pb-5 text-sm text-gray-300 font-normal leading-relaxed pt-1 border-t border-white/5"
+                        className="px-3.5 pb-3.5 sm:px-5 sm:pb-5 text-sm text-gray-300 font-normal leading-relaxed pt-1 border-t border-white/5"
                       >
                         {faq.answer}
                       </div>

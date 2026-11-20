@@ -63,16 +63,16 @@ const StatsSection = () => {
       className="relative bg-navy-primary text-white px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 2xl:px-20 py-10 sm:py-12 border-t border-white/5"
     >
       <div className="mx-auto max-w-container w-full">
-        <dl className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 rounded-2xl border border-white/10 bg-navy-secondary/60 p-6 sm:p-8 backdrop-blur-sm text-center shadow-lg">
+        <dl className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6 rounded-2xl border border-white/10 bg-navy-secondary/60 p-4 min-[380px]:p-6 sm:p-8 backdrop-blur-sm text-center shadow-lg">
           {companyStats.map((stat, index) => (
             <div
               key={stat.id}
-              className="flex flex-col-reverse justify-center items-center py-2 px-3"
+              className="flex flex-col-reverse justify-center items-center py-2 px-1 min-[360px]:px-2 sm:px-3"
             >
-              <dt className="text-xs sm:text-sm font-medium text-gray-300 mt-1.5">
+              <dt className="text-[11px] min-[360px]:text-xs sm:text-sm font-medium text-gray-300 mt-1.5 leading-tight">
                 {stat.label}
               </dt>
-              <dd className="text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-gold-primary">
+              <dd className="text-xl min-[360px]:text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-gold-primary">
                 {values[index]}
                 {stat.suffix}
               </dd>

@@ -41,7 +41,7 @@ const RouteError = () => {
 
       <DecorativeBlobs />
 
-      <div className="relative z-10 w-full max-w-lg rounded-3xl border border-brand-100 bg-[color:var(--color-surface)] p-8 text-center shadow-xl backdrop-blur-sm dark:border-brand-900 dark:bg-gray-800 sm:p-10">
+      <div className="relative z-10 w-full max-w-lg rounded-3xl border border-brand-100 bg-[color:var(--color-surface)] p-5 sm:p-10 text-center shadow-xl backdrop-blur-sm dark:border-brand-900 dark:bg-gray-800">
         <h1 className="mb-4 text-display font-extrabold text-brand-700 dark:text-brand-400">
           Oops!
         </h1>

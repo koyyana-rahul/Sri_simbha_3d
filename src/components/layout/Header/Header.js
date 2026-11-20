@@ -76,11 +76,11 @@ const Header = () => {
         <Navbar onNavigate={closeMenu} className="hidden lg:flex justify-self-center px-4" />
 
         {/* Right: Enquire Now button and mobile menu toggle */}
-        <div className="flex items-center justify-self-end gap-2 sm:gap-3 flex-shrink-0">
+        <div className="flex items-center justify-self-end gap-1.5 min-[360px]:gap-2 sm:gap-3 flex-shrink-0">
           <Link
             to="/contact"
             onClick={closeMenu}
-            className="inline-flex items-center justify-center h-9 sm:h-10 px-3 min-[360px]:px-4 sm:px-5 text-[11px] min-[360px]:text-xs sm:text-sm font-semibold rounded-full bg-gradient-to-r from-[#FFC928] to-[#E8B83F] text-[#081329] shadow-[0_2px_8px_rgba(232,184,63,0.2)] hover:shadow-[0_4px_16px_rgba(255,201,40,0.35)] hover:brightness-105 active:scale-95 transition-all duration-200 whitespace-nowrap"
+            className="inline-flex items-center justify-center h-8.5 min-[360px]:h-9 sm:h-10 px-2.5 min-[360px]:px-4 sm:px-5 text-[10.5px] min-[360px]:text-xs sm:text-sm font-semibold rounded-full bg-gradient-to-r from-[#FFC928] to-[#E8B83F] text-[#081329] shadow-[0_2px_8px_rgba(232,184,63,0.2)] hover:shadow-[0_4px_16px_rgba(255,201,40,0.35)] hover:brightness-105 active:scale-95 transition-all duration-200 whitespace-nowrap"
           >
             Enquire Now
           </Link>

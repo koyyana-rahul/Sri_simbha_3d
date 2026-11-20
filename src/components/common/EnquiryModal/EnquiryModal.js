@@ -80,12 +80,12 @@ const EnquiryModal = ({ isOpen, onClose, defaultService = "LED Display Advertisi
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-navy-primary/80 backdrop-blur-md animate-fadeIn">
-      <div className="relative w-full max-w-lg p-6 sm:p-8 rounded-2xl bg-navy-secondary border border-gold-primary/30 shadow-2xl text-white">
+    <div className="fixed inset-0 z-[1200] flex items-center justify-center p-3 sm:p-4 bg-navy-primary/80 backdrop-blur-md animate-fadeIn overflow-y-auto">
+      <div className="relative w-full max-w-lg max-h-[calc(100dvh-2rem)] overflow-y-auto p-5 sm:p-8 rounded-2xl bg-navy-secondary border border-gold-primary/30 shadow-2xl text-white my-auto">
         {/* Close button */}
         <button
           onClick={onClose}
-          className="absolute top-5 right-5 p-2 rounded-full text-content-muted hover:text-white hover:bg-navy-primary transition"
+          className="absolute top-4 right-4 sm:top-5 sm:right-5 p-2 rounded-full text-content-muted hover:text-white hover:bg-navy-primary transition"
           aria-label="Close modal"
         >
           <X className="w-5 h-5" />

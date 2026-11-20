@@ -28,11 +28,11 @@ const NotFound = () => (
       the address may contain a typo.
     </p>
 
-    <div className="flex flex-wrap items-center justify-center gap-4">
-      <Button as={Link} to="/" variant="gradient" size="md">
+    <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 w-full max-w-xs sm:max-w-none">
+      <Button as={Link} to="/" variant="gradient" size="md" className="w-full sm:w-auto">
         Back to home
       </Button>
-      <Button as={Link} to="/services" variant="outline" size="md">
+      <Button as={Link} to="/services" variant="outline" size="md" className="w-full sm:w-auto">
         Browse services
       </Button>
     </div>

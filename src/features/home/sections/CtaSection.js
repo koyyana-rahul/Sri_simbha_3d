@@ -43,10 +43,10 @@ const CtaSection = ({
         </p>
       ) : null}
 
-      <div className="flex flex-wrap items-center justify-center gap-3">
+      <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-2.5 sm:gap-3 w-full max-w-md sm:max-w-none mx-auto">
         <Link
           to="/contact"
-          className="gold-btn-primary inline-flex items-center justify-center gap-1.5 px-5 py-2.5 rounded-xl font-bold text-xs sm:text-sm text-navy-primary shadow-md hover:brightness-105 active:scale-[0.99] transition-all"
+          className="gold-btn-primary inline-flex items-center justify-center gap-1.5 px-5 py-2.5 sm:py-3 rounded-xl font-bold text-xs sm:text-sm text-navy-primary shadow-md hover:brightness-105 active:scale-[0.99] transition-all w-full sm:w-auto"
         >
           <span>Send an Enquiry</span>
           <ArrowRight className="w-4 h-4" />
@@ -56,7 +56,7 @@ const CtaSection = ({
           href={buildWhatsAppUrl()}
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl border border-emerald-500/30 bg-emerald-950/30 text-emerald-400 text-xs sm:text-sm font-semibold hover:bg-emerald-900/40 hover:border-emerald-400 transition-all"
+          className="inline-flex items-center justify-center gap-2 px-5 py-2.5 sm:py-3 rounded-xl border border-emerald-500/30 bg-emerald-950/30 text-emerald-400 text-xs sm:text-sm font-semibold hover:bg-emerald-900/40 hover:border-emerald-400 transition-all w-full sm:w-auto"
         >
           <FaWhatsapp className="text-base text-emerald-400" aria-hidden="true" />
           <span>Chat on WhatsApp</span>
@@ -64,7 +64,7 @@ const CtaSection = ({
 
         <a
           href={buildTelUrl()}
-          className="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl border border-white/10 bg-white/5 text-gray-200 text-xs sm:text-sm font-semibold hover:border-gold-primary/40 hover:text-white transition-all"
+          className="inline-flex items-center justify-center gap-2 px-5 py-2.5 sm:py-3 rounded-xl border border-white/10 bg-white/5 text-gray-200 text-xs sm:text-sm font-semibold hover:border-gold-primary/40 hover:text-white transition-all w-full sm:w-auto"
         >
           <FaPhoneAlt className="text-xs text-gold-primary" aria-hidden="true" />
           <span>{siteConfig.contact.phone}</span>
